@@ -1,24 +1,24 @@
-// window is a global variable of browser
 
-window.onload = init() ; 
+
+window.onload = init() ; // will run the function when window is fully loaded - better option than simple init()
 
 function init(){
 
-    var extend = [23.7, 38];
+    var extend = [23.7, 38]
 
     var map = new ol.Map({
-        // view
-        // layers
-        // target
+
+        
         view: new ol.View({
             center: ol.proj.fromLonLat(extend), //needs to be projected coords
-            zoom : 6,
+            zoom : 6, 
             maxZoom: 23,
             minZoom: 0,
             rotation : 0
         }),
 
-        layers:[ 
+        layers:[
+
             new ol.layer.Tile({
 
                 source : new ol.source.XYZ({
@@ -31,128 +31,66 @@ function init(){
 
                 //visible:false,
                 //zIndex:2
-
             })
         ],
 
         target: "map",
-        keyboardEventTarget: document,
-        // controls : ol.control.defaults().extend([
-
-        //     controlFullScreen,
-        //     scaleLIne,
-        //     mousePositon,
-        //     mapOverVIew
-
-        // ]) 
-        
+        keyboardEventTarget: document
     })
 
-    // uncomment for first edition of free-air-anomalies
-    // var wmsTiledLayer = new ol.layer.Tile({
-    //   visible: true, //false
-    //   source: new ol.source.TileWMS({
-    //     url: "http://localhost:8080/geoserver/it.geosolutions/wms",
-    //     params: {
-    //       FORMAT: "image/png",
-    //       VERSION: "1.1.1",
-    //       tiled: true,
-    //       STYLES: "",
-    //       LAYERS: "it.geosolutions:geotiff_coverage",
-    //       exceptions: "application/vnd.ogc.se_inimage",
-    //       tilesOrigin: 19.4045 + "," + 34.80396388870029,
-    //     },
-    //   }),
-    // });
 
-    // var wmsTiledLayer  = new ol.layer.Tile({
-    //   visible: false,
-    //   source: new ol.source.TileWMS({
-    //     url: 'http://localhost:8080/geoserver/it.geosolutions/wms',
-    //     params: {'FORMAT': "image/png", 
-    //              'VERSION': '1.1.1',
-    //              tiled: true,
-    //           "STYLES": '',
-    //           "LAYERS": 'it.geosolutions:geotiff_free-air-final',
-    //           "exceptions": 'application/vnd.ogc.se_inimage',
-    //        tilesOrigin: 18.999833333 + "," + 33.000166667
-    //     }
-    //   })
-    // });
+    var DemRaster, geoTransformDem, xPixelDem, yPixelDem, heightDem, imageDem;
 
-    //map.addLayer(wmsTiledLayer);
-
-    // var wmsTiledDEMLayer = new ol.layer.Tile({
-    //   visible: true,
-    //   source: new ol.source.TileWMS({
-    //     url: 'http://localhost:8080/geoserver/it.geosolutions/wms',
-    //     params: {'FORMAT': "image/png", 
-    //              'VERSION': '1.1.1',
-    //              tiled: true,
-    //           "STYLES": '',
-    //           "LAYERS": 'it.geosolutions:geotiff_dem-SRTM-WGS-30',
-    //           "exceptions": 'application/vnd.ogc.se_inimage',
-    //        tilesOrigin: 18.610904998 + "," + 34.697753939
-    //     }
-    //   })
-    // });
-
-    //map.addLayer(wmsTiledDEMLayer);
-
-    // map.on('click', function (evt) {  //  , 'pointermove'
-    //     //document.getElementById('info').innerHTML = '';
-
-    //     var view = map.getView();
-    //     var viewResolution = /** @type {number} */ (view.getResolution());
-    //     var wmsSource = wmsTiledLayer.getSource();
-    //     var url = wmsSource.getFeatureInfoUrl(
-    //       evt.coordinate,
-    //       viewResolution,
-    //       view.getProjection(),
-    //       {'INFO_FORMAT': 'text/html', 'FEATURE_COUNT': 50}
-    //     );
+    d3.request("data/free-air-final.tif").responseType("arraybuffer").get(function (error, request) {
+    
+        if (error) throw error;
+    
+        var tiff = GeoTIFF.parse(request.response); 
+        imageDem = tiff.getImage();
+        DemRaster = imageDem.readRasters();
+        //console.log("getTiePoints : ");
+        //console.log(imageDem.getTiePoints()) ; 
+        //console.log(rasters);
+        var tiepoint = imageDem.getTiePoints()[0];
+        console.log(tiepoint);
+        var pixelScale = imageDem.getFileDirectory().ModelPixelScale;
         
-    //     if (url) {
-    //       fetch(url)
-    //         .then(function (response) { 
-    //           return response.text(); })
-    //         .then(function (val) {
-    //           console.log(val); 
-    //         })
-    //         .catch(function(err){ // in case an error occurs 
-    //             console.log(err); 
-    //         });
-    //     }
+        geoTransformDem = [tiepoint.x, pixelScale[0], 0, tiepoint.y, 0, -1 * pixelScale[1]];
+        console.log(geoTransformDem);
+    
+    });
 
-    //   });
+    function calculatePixelsDem(f, l) {
+        // input f, l
+        // output Xpixel, Ypixel
+        var Xpixel = parseInt((l - geoTransformDem[0]) / geoTransformDem[1]);
+        var Ypixel = parseInt((f - geoTransformDem[3]) / geoTransformDem[5]);
+        
+        var count = Ypixel * imageDem.getWidth();
+        count = count + Xpixel;
+        var heigthDem = DemRaster[0][count];
+    
+        // returns 
+        return [Xpixel, Ypixel, heigthDem.toFixed(2)];
+    }
+
+    map.on('pointermove', function (evt) {  //  , 'pointermove' 'click'
+    //document.getElementById('info').innerHTML = '';
+
+    var ckickedCoord = evt.coordinate;
+    console.log(ckickedCoord); 
+    var lonlat = ol.proj.transform(ckickedCoord, 'EPSG:3857', 'EPSG:4326')
+    console.log(lonlat); 
+
+    // var f = event.latlng.lat ; 
+    // var l = event.latlng.lng ; 
+
+    var X = calculatePixelsDem(lonlat[1], lonlat[0]);
+    console.log(X); 
+
+    var egsa = fl2EGSA87(lonlat[1], lonlat[0]);
+    console.log(egsa);
+  });
 
 
-      // map.on('click', function (evt) {  //  , 'pointermove'
-      //     //document.getElementById('info').innerHTML = '';
-  
-      //     var view = map.getView();
-      //     var viewResolution = /** @type {number} */ (view.getResolution());
-      //     var wmsSource = wmsTiledDEMLayer.getSource();
-      //     var url = wmsSource.getFeatureInfoUrl(
-      //       evt.coordinate,
-      //       viewResolution,
-      //       view.getProjection(),
-      //       {'INFO_FORMAT': 'text/html', 'FEATURE_COUNT': 50}
-      //     );
-          
-      //     if (url) {
-      //       fetch(url)
-      //         .then(function (response) { 
-      //           return response.text(); })
-      //         .then(function (val) {
-      //           console.log(val); 
-      //         })
-      //         .catch(function(err){ // in case an error occurs 
-      //             console.log(err); 
-      //         });
-      //     }
-  
-      //   });
 }
-
-//$(document).ready(init());

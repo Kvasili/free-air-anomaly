@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="./styles.css">
     <script src="./libs/v6.4.3-dist/ol.js"></script>
 
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="./libs/geotiff.js"></script>
+    <script src="./libs/transformationCoords.js"></script>
+
 </head>
 <body>
     <div id="mainPage" data-role="page">
@@ -18,8 +22,8 @@
             <input id="north" type="button" data-icon="arrow-u" value="north">
             <input id="south" type="button" data-icon="arrow-d" value="south">
             <input id="east" type="button" data-icon="arrow-r" value="east">
-        </div>
-       -->
+        </div> -->
+      
         
         <div role="main" class="ui-content">
             <div id="map" class="map"></div>
@@ -31,8 +35,8 @@
         </div> -->
 
         <!-- panels for extra tools and setting -->
-        <div data-role="panel" id="panelSetting" data-display="push"></div>
-        <div data-role="panel" id="overLayerSwitcher" data-display="push"></div>
+        <!-- <div data-role="panel" id="panelSetting" data-display="push"></div>
+        <div data-role="panel" id="overLayerSwitcher" data-display="push"></div> -->
         <!-- <div data-role="panel" id="milSymbol" data-display="overlay"></div>
         <div data-role="panel" id="tacticalSymbol" data-display="overlay"></div>
         <div data-role="panel" id="geoTools" data-display="overlay"></div> -->
