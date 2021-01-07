@@ -12,6 +12,10 @@
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="./libs/geotiff.js"></script>
     <script src="./libs/transformationCoords.js"></script>
+    <script src="libs/loaderDom.js"></script>
+    <script src="core/controls.js"></script>
+    <script src="./core/idw.js"></script>
+    <script src="controls/gys-logo/logo.js"></script>
 
 </head>
 <body>
@@ -25,7 +29,11 @@
         </div> -->
       
         
-        <div role="main" class="ui-content">
+        <!-- <div role="main" class="ui-content">
+            <div id="map" class="map"></div>
+        </div> -->
+
+        <div id="main" role="main" class="ui-content">
             <div id="map" class="map"></div>
         </div>
 
@@ -55,7 +63,7 @@
 
 </body>
 
-    <script src="./main.js"></script>
+    <script src="core/main.js"></script>
     
     <!-- jquery from online source -->
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
