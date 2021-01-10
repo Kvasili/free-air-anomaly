@@ -50,6 +50,12 @@ function init(){
     var lonlat = ol.proj.transform(ckickedCoord, 'EPSG:3857', 'EPSG:4326');
     //console.log(lonlat); 
 
+    // weather conditon of clicked coords
+    weather.changeLocation([lonlat[1], lonlat[0]]);
+    weather.getWeather()
+        .then(res => console.log(res))
+        .catch(err => console.log(err)); 
+
     var X = idw.calculatePixelsDem(lonlat[1], lonlat[0]);
     console.log(X); 
 
@@ -58,6 +64,7 @@ function init(){
 
     var faa = idw.idwPow2(lonlat[1], lonlat[0]);
     console.log(faa); 
+
 
 
   });
