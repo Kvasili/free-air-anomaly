@@ -5,6 +5,7 @@
     <title>Free-air-anomally map</title>
 
     <!-- openlayers -->
+    <link rel="stylesheet" href="./libs/bootstrap.min.css">
     <link rel="stylesheet" href="./libs/v6.4.3-dist/ol.css">    
     <link rel="stylesheet" href="./styles.css">
     <script src="./libs/v6.4.3-dist/ol.js"></script>
@@ -19,7 +20,7 @@
 
 </head>
 <body>
-    <div id="mainPage" data-role="page">
+    <!-- <div id="mainPage" data-role="page"> -->
 
         <!-- <div data-role="header">
             <input id="west" type="button" data-icon="arrow-l" value="west">
@@ -33,9 +34,9 @@
             <div id="map" class="map"></div>
         </div> -->
 
-        <div id="main" role="main" class="ui-content">
+        <!-- <div id="main" role="main" class="ui-content">
             <div id="map" class="map"></div>
-        </div>
+        </div> -->
 
         
         <!-- <div data-role="footer">
@@ -49,7 +50,7 @@
         <div data-role="panel" id="tacticalSymbol" data-display="overlay"></div>
         <div data-role="panel" id="geoTools" data-display="overlay"></div> -->
       
-    </div>
+    <!-- </div> -->
 
    
     
@@ -59,16 +60,85 @@
         </div>
     </div> -->
 
-    <!-- <div id="map"></div> -->
+    <div id="map" class="map"></div>
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-6 mx-auto text-center bg-primary mt-5 p-5">
+                <!-- <img src="./controls/gys-logo/gys.png" alt="" id="w-icon" width="50px"> -->
+                <h2 id="w-location">Free-air-anomaly</h2>
+                <h3 class="text-dark" id="w-desc"></h3>
+                <h3 id="w-string"></h3>
+                
+
+                <ul class="list-group mt-3" id="w-details">
+                    <li class="list-group-item" id="egsa-coords"></li>
+                    <li class="list-group-item" id="faa"></li>
+                    <li class="list-group-item" id="w-wind"></li>
+
+                </ul>
+            
+                <hr>
+                <!-- <button type="button" class="btn btn-primary" 
+                data-bs-toggle="modal" data-bs-target="#locModal">
+                    Change location
+                </button> -->
+
+            </div>
+        </div>
+
+    </div>
+
+        <!-- Modal -->
+    <div class="modal fade" id="locModal" tabindex="-1" aria-labelledby="locModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="locModalLabel">Choose location from map</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                <form id="w-form">
+
+                    <div class="form-group">
+                        <label for="lat">lat</label>
+                        <input type="text" id="lat" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="long">long</label>
+                        <input type="text" id="long" class="form-control">
+                    </div>
+
+                </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="w-change-btn" type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
 
 </body>
 
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
+
     <script src="core/weather.js"></script>
+    <script src="core/ui.js"></script>
     <script src="core/main.js"></script>
     
     <!-- jquery from online source -->
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <!-- <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
 
 </html>

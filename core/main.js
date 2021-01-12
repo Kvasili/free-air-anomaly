@@ -40,7 +40,13 @@ function init(){
 
     map.addControl(new logoControl(controlSettings[0].options)); 
 
+    function getWeather(){
 
+        weather.getWeather()
+          .then(res => ui.paintWeather(res)) // console.log(res)
+          .catch(err => console.log(err)); 
+      
+      }
 
     map.on('click', function (evt) {  //  , 'pointermove' 'click'
     //document.getElementById('info').innerHTML = '';
@@ -52,20 +58,18 @@ function init(){
 
     // weather conditon of clicked coords
     weather.changeLocation([lonlat[1], lonlat[0]]);
-    weather.getWeather()
-        .then(res => console.log(res))
-        .catch(err => console.log(err)); 
+    getWeather();
 
     var X = idw.calculatePixelsDem(lonlat[1], lonlat[0]);
     console.log(X); 
 
     var egsa = fl2EGSA87(lonlat[1], lonlat[0]);
-    console.log(egsa);
+    //console.log(egsa[0].toFixed(0));
+    ui.paintEgsa(egsa); 
 
     var faa = idw.idwPow2(lonlat[1], lonlat[0]);
-    console.log(faa); 
-
-
+    //console.log(faa); 
+    ui.paintFaa(faa); 
 
   });
 

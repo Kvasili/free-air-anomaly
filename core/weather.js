@@ -2,7 +2,8 @@
 class Weather{
 
     constructor(coords){
-        this.apikey = "nFCcWd40z5eLTONwEWqcEA0byqNcpe53"; // your-apikey from windy.com
+        //this.apikey = "nFCcWd40z5eLTONwEWqcEA0byqNcpe53"; // your-apikey from windy.com
+        this.apikey = 'D3jQSl6BTvKQSwOJYLAJyAPTgwUG3Wga';
         this.lat = coords[0];
         this.lon = coords[1]; 
     }
@@ -49,20 +50,3 @@ weather.changeLocation([40.629269, 22.947412]);
 weather.getWeather()
   .then(res => console.log(res))
   .catch(err => console.log(err)); 
-
-// let _data = {
-//     "lat": 37.983810,
-//     "lon": 23.727539,
-//     "model": "gfs", //"IconEU"
-//     "parameters": ["temp"],//["wind", "dewpoint", "rh", "pressure"],
-//     "levels": ["surface"],
-//     "key": "nFCcWd40z5eLTONwEWqcEA0byqNcpe53"
-// }
-
-// fetch('https://api.windy.com/api/point-forecast/v2', {
-//   method: "POST",
-//   body: JSON.stringify(_data),
-//   headers: {"Content-type": "application/json; charset=UTF-8"}
-// }).then(response => response.json()) 
-//   .then(json => console.log(json))
-//   .catch(err => console.log(err));
