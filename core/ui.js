@@ -1,10 +1,11 @@
 // calss ui for painting div container with weather data
 
 class UI{
+    
     constructor(){
         this.egsa_coords = document.getElementById("egsa-coords"); 
         this.faa = document.getElementById('faa'); 
-        this.wind = document.getElementById('w-wind'); 
+        this.wgs84 = document.getElementById('wgs84'); 
     }
 
     paintWeather(weather){
@@ -19,6 +20,10 @@ class UI{
     paintFaa(faa){
         this.faa.textContent = `${faa.toFixed(4)} mgal`; 
 
+    }
+
+    paintWgs(wgs){
+        this.wgs84.textContent  = `φ: ${wgs[1].toFixed(4)} ${'||'} λ:${wgs[0].toFixed(4)}`;  
     }
 }
 

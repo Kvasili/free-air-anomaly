@@ -1,5 +1,6 @@
 
 var logoControl = /*@__PURE__*/(function (Control) {
+
     function logoControl(opt_options) {
 
         var options = opt_options || {}; 
@@ -12,24 +13,26 @@ var logoControl = /*@__PURE__*/(function (Control) {
                     zoom:6,
                     rotation: 0
                 })
-                //app._map.setView(_view);
+                map.setView(_view);
             }
         }
 
         var div=document.createElement("div");
         div.style=loaderDOM.olControlPosition(options); 
+        div.style.borderRadius = '20px'; 
         var elementLogo = document.createElement("img");
         elementLogo.src = logoControl.prototype.logo.imageLogoUrl;
         elementLogo.width = "50";
         elementLogo.className="logo";
+        //elementLogo.style.borderRadius = '25px';
        // elementLogo.height = "60";
-        //elementLogo.style = loaderDOM.olControlPosition(opt_options)
+        elementLogo.style = loaderDOM.olControlPosition(opt_options);
 
         div.appendChild(elementLogo);
         Control.call(this, {
             element: div
         });
-        //div.onclick=logoControl.prototype.logo.resetView;
+        div.onclick=logoControl.prototype.logo.resetView;
     }
 
     if (Control) logoControl.__proto__ = Control;
@@ -37,4 +40,7 @@ var logoControl = /*@__PURE__*/(function (Control) {
     logoControl.prototype.constructor = logoControl;
 
     return logoControl;
+
 }(ol.control.Control));
+
+map.addControl(new logoControl(controlSettings[0].options)); 

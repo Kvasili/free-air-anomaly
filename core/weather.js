@@ -46,7 +46,7 @@ class Weather{
 // init weather object
 var weather = new Weather([37.983810, 23.727539]);
 
-weather.changeLocation([40.629269, 22.947412]);
-weather.getWeather()
-  .then(res => console.log(res))
-  .catch(err => console.log(err)); 
+// weather.changeLocation([40.629269, 22.947412]);
+// weather.getWeather()
+//   .then(res => console.log(res))
+//   .catch(err => console.log(err)); 

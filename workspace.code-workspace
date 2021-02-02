@@ -5,7 +5,12 @@
 		},
 		{
 			"path": "..\\millApp\\milApp"
+		},
+		{
+			"path": "D:\\tutorials\\Modern JavaScript From The Beginning\\projects\\tracalorie"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "tracalorie"
+	}
 }

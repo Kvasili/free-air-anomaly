@@ -6,7 +6,6 @@ var loaderDOM = {
         var verticalposition=0.3+(options.verticalPosition-1)*3;
         positionStyle='position: absolute;'+ options.position.UD+":"+countposition+'em;'+options.position.RL+": "+verticalposition+"em";
         return positionStyle;
-
     }
 
 };
