@@ -5,6 +5,7 @@ class UI{
     constructor(){
         this.egsa_coords = document.getElementById("egsa-coords"); 
         this.faa = document.getElementById('faa'); 
+        this.faa2 = document.getElementById('faa2'); 
         this.wgs84 = document.getElementById('wgs84'); 
     }
 
@@ -19,6 +20,11 @@ class UI{
 
     paintFaa(faa){
         this.faa.textContent = `${faa.toFixed(4)} mgal`; 
+
+    }
+
+    paintFaa2(faa){
+        this.faa2.textContent = `${faa.toFixed(4)} mgal`; 
 
     }
 

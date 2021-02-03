@@ -1,41 +1,4 @@
 
-
-// var app = {
-
-//     _map: new ol.Map({
-//         controls: [new ol.control.Rotate()]
-//     }),
-
-//     initialState: {//  the structure of the st
-
-//         map: {
-//             view: {
-//                 zoom: 6,
-//                 center: ol.proj.fromLonLat([23.7, 38]),
-//                 rotation: 0,
-//             }
-//         },
-
-
-
-
-//     },
-
-//     render: function(divMap){
-       
-//         var _view = new ol.View({/// configuration of the view based on the state 
-//             center: app.initialState.map.view.center,//initialize the center of the map based on the state
-//             zoom: app.initialState.map.view.zoom,//initialize the zoom of the map based on the state
-//             rotation: app.initialState.map.view.rotation//initialize the rotation of the map based on the state
-//         })
-
-//     }
-
-// };
-
-
-
-
 var extend = [23.7, 38];
 
 var map = new ol.Map({
@@ -98,32 +61,55 @@ function getWeather(){
     
     }
 
-map.on('pointermove' , function (evt) {  //  , 'pointermove' 'click'
-//document.getElementById('info').innerHTML = '';
+// map.on('pointermove', function (evt) {  //  , 'pointermove' 'click'
+// //document.getElementById('info').innerHTML = '';
 
-var ckickedCoord = evt.coordinate; //epsg:3857
-//console.log(ckickedCoord); 
-var lonlat = ol.proj.transform(ckickedCoord, 'EPSG:3857', 'EPSG:4326');
-console.log(lonlat); 
-ui.paintWgs(lonlat); 
-// set data to localStorage
-storage.setLocationData(lonlat[1], lonlat[0]); 
-//weather conditon of clicked coords
-// weather.changeLocation([storage.getLocationData().lat, storage.getLocationData().lat]);
-// weather.getWeather()
-//       .then(res => ui.paintWeather(res)) // console.log(res)
-//       .catch(err => console.log(err));
+//     var ckickedCoord = evt.coordinate; //epsg:3857
+//     //console.log(ckickedCoord); 
+//     var lonlat = ol.proj.transform(ckickedCoord, 'EPSG:3857', 'EPSG:4326');
+//     console.log(lonlat); 
+//     ui.paintWgs(lonlat); 
+//     // set data to localStorage
+//     storage.setLocationData(lonlat[1], lonlat[0]); 
+//     //weather conditon of clicked coords
+//     // weather.changeLocation([storage.getLocationData().lat, storage.getLocationData().lat]);
+//     // weather.getWeather()
+//     //       .then(res => ui.paintWeather(res)) // console.log(res)
+//     //       .catch(err => console.log(err));
 
-var X = idw.calculatePixelsDem(lonlat[1], lonlat[0]);
-//console.log(X); 
+//     var X = idw.calculatePixelsDem(lonlat[1], lonlat[0]);
+//     console.log(X); 
 
-var egsa = fl2EGSA87(lonlat[1], lonlat[0]);
-//console.log(egsa[0].toFixed(0));
-ui.paintEgsa(egsa); 
+//     var egsa = fl2EGSA87(lonlat[1], lonlat[0]);
+//     //console.log(egsa[0].toFixed(0));
+//     ui.paintEgsa(egsa); 
 
-var faa = idw.idwPow2(lonlat[1], lonlat[0]);
-//console.log(faa); 
-ui.paintFaa(faa); 
+//     var faa = idw.idwPow2(lonlat[1], lonlat[0]);
+//     console.log(faa); 
+//     ui.paintFaa(faa); 
+//     ui.paintFaa2(faa); 
+
+// });
+
+map.on('pointermove', function (evt) {  //  , 'pointermove' 'click'
+
+    var map = evt.map;
+    //get coordinates of center map view
+    center = ol.proj.toLonLat( map.getView().getCenter() );
+    console.log(center); 
+    ui.paintWgs(center); 
+
+    var X = idw.calculatePixelsDem(center[1], center[0]);
+    // console.log(X); 
+
+    var egsa = fl2EGSA87(center[1], center[0]);
+    // //console.log(egsa[0].toFixed(0));
+    ui.paintEgsa(egsa); 
+
+    var faa = idw.idwPow2(center[1], center[0]);
+    // console.log(faa); 
+    ui.paintFaa(faa); 
+    ui.paintFaa2(faa); 
 
 });
 

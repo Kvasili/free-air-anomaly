@@ -15,14 +15,17 @@ var faaControl= /*@__PURE__*/(function (Control) {
         }
 
         var div=document.createElement("div");
-        div.width = "50";
-        div.style.backgroundColor='green'; 
+        // div.width = "50";
+        // div.height = "50";
+        // div.style.backgroundColor='green'; 
         div.style=loaderDOM.olControlPosition(options); 
         var elementLogo = document.createElement("img");
         elementLogo.src = faaControl.prototype.logo.imageLogoUrl;
         elementLogo.width = "40";
+        //elementLogo.height = "60";
         elementLogo.className="faaPng";
-       // elementLogo.height = "60";
+        //elementLogo.style.borderColor = "red !important";
+       
         elementLogo.style = loaderDOM.olControlPosition(opt_options);
 
         div.appendChild(elementLogo);
