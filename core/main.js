@@ -99,7 +99,7 @@ map.on('pointermove', function (evt) {  //  , 'pointermove' 'click'
     console.log(center); 
     ui.paintWgs(center); 
 
-    var X = idw.calculatePixelsDem(center[1], center[0]);
+    //var X = idw.calculatePixelsDem(center[1], center[0]);
     // console.log(X); 
 
     var egsa = fl2EGSA87(center[1], center[0]);

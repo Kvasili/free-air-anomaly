@@ -15,8 +15,9 @@ var faaControl= /*@__PURE__*/(function (Control) {
         }
 
         var div=document.createElement("div");
-        // div.width = "50";
-        // div.height = "50";
+        div.className = 'ol-unselectable ol-control';
+        div.width = "50";
+        div.height = "50";
         // div.style.backgroundColor='green'; 
         div.style=loaderDOM.olControlPosition(options); 
         var elementLogo = document.createElement("img");
