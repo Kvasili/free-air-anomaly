@@ -1,6 +1,0 @@
-# for adding files to the project
-# navigate into directory
-
-git add .
-git commit -m "update"
-git push
