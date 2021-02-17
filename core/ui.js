@@ -1,4 +1,5 @@
-// class ui for painting div container with weather data
+
+// class ui for painting div container with appropriate data
 
 class UI{
     
@@ -18,10 +19,6 @@ class UI{
 
     }
 
-    paintWeather(weather){
-        
-        this.wind.textContent = `${(weather['temp-surface'][0]-273.15).toFixed(0)} C` ;  
-    }
 
     paintEgsa(egsa){
         //this.egsa_coords.textContent = `X: ${egsa[0].toFixed(0)} ${'||'} Y:${egsa[1].toFixed(0)}`; 
@@ -46,6 +43,16 @@ class UI{
 
     paintFaa2(faa){
         this.faa2.textContent = `${faa.toFixed(2)} mGal`; 
+
+    }
+
+    stopPaintingAll(){
+
+        this.egsaX.value = '';
+        this.egsaY.value = ''; 
+        this.wgs84F.value  = ''; //`φ: ${wgs[1].toFixed(4)} ${'||'} λ:${wgs[0].toFixed(4)}`; 
+        this.wgs84L.value = '';
+        this.geoValue.value = ''; 
 
     }
 }
