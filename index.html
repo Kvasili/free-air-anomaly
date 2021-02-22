@@ -37,9 +37,11 @@
     <div id="map" class="map"></div>
 
     <div id="containerGeoid">
-
-      <h4 style="color: white; text-align:center; ">Υπολογισμός Γεωειδούς</h4><hr>
-
+        <div>
+            <h4 style="color: white; text-align:center; display: block;">Υπολογισμός Γεωειδούς</h4>
+            <h4 style="color: white; text-align:center; display: none; ">Υπολογισμός Ανωμαλίων Βαρύτητας</h4><hr>
+        </div>
+        
       <div id="cbox">
 
           <input type="checkbox" id="checkbox1" checked>
@@ -57,8 +59,8 @@
       <hr>
       <p class="headerings" >Γεωγραφικές συντεταγμένες WGS84(φ,λ)</p>
       <div id="geogr">
-          <input id="lat" class="inputs" type="text" value="φ here .." />
-          <input id="lon" class="inputs" type="text" value="λ here .." />
+          <input id="lat" class="inputs" type="number" value="φ here .." />
+          <input id="lon" class="inputs" type="number" value="λ here .." />
           <button id="buttonOfN1" class="btnForCalc" style="font-family: Arial, Helvetica, sans-serif;" disabled>Υπολογισμός</button> 
       <!-- disabled -->
       </div>
@@ -66,13 +68,21 @@
 
       <div id="proj">
           <p class="headerings">Προβολικές συντεταγμένες ΕΓΣΑ 87 (x,y)</p>
-              <input id="x" class="inputs" type="text" value="X here.." />
-              <input id="y" class="inputs" type="text" value="y here.." />
+              <input id="x" class="inputs" type="number" value="X here.." />
+              <input id="y" class="inputs" type="number" value="y here.." />
           <!-- <input  type="button" id="buttonOfN2" class="btnForCalc" disabled value="Υπολογισμός"/> <hr> -->
           <button id="buttonOfN2" class="btnForCalc" style="font-family: Arial, Helvetica, sans-serif;" disabled >Υπολογισμός</button>
       </div><br>
-      <div><p class="headerings">Υπολογισμός Ν(m) με παρεμβολή IDW</p>
-          <input id="N" class="inputs" type="text"/> 
+      <div>
+          <div style="display: block;">
+            <p class="headerings">Υπολογισμός Ν(m) με παρεμβολή IDW</p>
+            <input id="N" class="inputs" type="number"/>
+        </div> 
+
+        <div style="display: none;">
+            <p class="headerings">Υπολογισμός Βαρύτητας Ελευθέρου Αέρα</p>
+          <input id="N" class="inputs" type="number"/> 
+        </div> 
       </div> 
       
       <!-- <div id="helpingTitle"><p class="headerings"><b>Οδηγίες</b></p></div> -->

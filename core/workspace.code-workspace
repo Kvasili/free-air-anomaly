@@ -4,13 +4,7 @@
 			"path": ".."
 		},
 		{
-			"path": "..\\..\\millApp"
-		},
-		{
 			"path": "..\\..\\geoid_project"
-		},
-		{
-			"path": "..\\..\\convert-coords"
 		}
 	],
 	"settings": {
