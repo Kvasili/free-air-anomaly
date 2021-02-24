@@ -7,36 +7,35 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-var layersMap = [
-
-    new ol.layer.Tile({
-
-        source : new ol.source.XYZ({
-            
-            attributionsCollapsible: false,
-            url: 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-            maxZoom: 19
-
-        })
-       
-    })
-]
-
 var app = {
 
     _map: new ol.Map({
-        layers: layersMap
+        layers: [new ol.layer.Tile({
+        
+            source : new ol.source.XYZ({
+                
+                attributionsCollapsible: false,
+                url: 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+                maxZoom: 19
+    
+            })
+           
+        })],
      }),
-
-    extend: [23.7, 38],
+    // initial map extend
+    _extend: {
+        extend: [23.7, 38],
+        zoom: 6,
+        rotation: 0
+    },
 
     render:function(mapDiv){ //render map
 
         app._map.setTarget(mapDiv); 
         var viewMap = new ol.View({
-            center: ol.proj.fromLonLat(app.extend), //needs to be projected coords
-            zoom : 6, 
-            rotation : 0
+            center: ol.proj.fromLonLat(app._extend.extend), //needs to be projected coords
+            zoom : app._extend.zoom, 
+            rotation : app._extend.rotation
         }); 
         app._map.setView(viewMap);  
     },
@@ -54,7 +53,7 @@ var app = {
     },
 
     calculateN:function(evt){
- 
+        //calculates N, paints egsa, wgs84, N
         var coordsXY = evt.coordinate;
         var egsa = fl2EGSA87(ol.proj.toLonLat( coordsXY )[1], ol.proj.toLonLat( coordsXY )[0]);
         var geoidValue = idw.idwPow2(coordsXY[0], coordsXY[1]);
@@ -62,6 +61,53 @@ var app = {
         ui.paintWgs84(ol.proj.toLonLat( coordsXY )); 
         ui.paintEgsa(egsa);
         ui.paintGeo(geoidValue);
+    },
+
+    putMarkers: function(places){
+        // places must be array of arrays containing wgs84 coords eg. [[long, lat],[long, lat],[long, lat]..]
+        var vectorSource = new ol.source.Vector({});
+    
+        for (var i = 0; i < places.length; i++) {
+        
+            var iconFeature = new ol.Feature({
+                geometry: new ol.geom.Point(ol.proj.transform([places[i][0], places[i][1]], 'EPSG:4326', 'EPSG:3857')),
+            });
+           
+            var iconStyle = new ol.style.Style({
+                image: new ol.style.Circle({
+                  radius: 6,
+                  fill: new ol.style.Fill({
+                    color: '#3399CC'
+                  }),
+                  stroke: new ol.style.Stroke({
+                    color: '#fff',
+                    width: 2
+                  })
+                }),
+                crossOrigin: 'anonymous'
+              })
+        
+            iconFeature.setStyle(iconStyle);
+            vectorSource.addFeature(iconFeature);
+        }
+        
+        
+        var vectorLayer = new ol.layer.Vector({
+            source: vectorSource,
+            // updateWhileAnimating: true,
+            // updateWhileInteracting: true
+        });
+    
+        vectorLayer.set('name', 'vector');
+        //add layer to map
+        app._map.addLayer(vectorLayer);
+        var viewMap = new ol.View({
+            center: ol.proj.fromLonLat([places[0][0], places[0][1]]), //needs to be projected coords
+            zoom : 10, 
+            rotation : 0
+        }); 
+        //set view to marker
+        app._map.setView(viewMap); 
     },
 
     removeMarker: function (){
@@ -92,6 +138,8 @@ var app = {
 
         checkBox1.onchange = function(){
             app.removeMarker();
+            ui.stopPaintingAll();
+            document.getElementById("fileInput").style.display = "none"; 
             if(document.getElementById("checkbox1").checked){
                 app._map.on('pointermove', app.calculateN);
                 app.uncheckBox('checkbox2','checkbox3');
@@ -105,7 +153,8 @@ var app = {
         }
 
         checkBox2.onchange = function(){
-
+            app.removeMarker();
+            document.getElementById("fileInput").style.display = "none"; 
             if (checkBox2.checked) {
                 app.uncheckBox('checkbox1','checkbox3');
                 ui.stopPaintingAll();
@@ -122,7 +171,7 @@ var app = {
                     var lamda = document.getElementById('lon').value;
 
                     //pointsForMarkers.push([parseFloat(lamda), parseFloat(fi)]);
-                    putMarkers([[parseFloat(lamda), parseFloat(fi)]]); 
+                    app.putMarkers([[parseFloat(lamda), parseFloat(fi)]]); 
                    
                     var egsa = fl2EGSA87(fi, lamda); 
                     ui.paintEgsa(egsa);
@@ -140,8 +189,7 @@ var app = {
                     //convert egsa coords to WGS84
                     var fl84 = Egsa2fl84(xegsa, yegsa); 
                     //console.log(fl84); 
-
-                    putMarkers([[parseFloat(fl84[1]), parseFloat(fl84[0])]]); 
+                    app.putMarkers([[parseFloat(fl84[1]), parseFloat(fl84[0])]]); 
                     ui.paintWgs84([fl84[1], fl84[0]]);
 
                     var x = ol.proj.fromLonLat([parseFloat(fl84[1]), parseFloat(fl84[0])])[0];
@@ -150,18 +198,12 @@ var app = {
                     ui.paintGeo(geoidValue);                    
                 }
 
-
-
-
             }else{
                 // DO STUFF HERE ........
                 app.disableCalcButtons("buttonOfN1", "buttonOfN2", true);
                 ui.stopPaintingAll();
-                app.removeMarker();
-                //putMarkers([[parseFloat(fl84[1]), parseFloat(fl84[0])]], false); 
-                //app._map.removeLayer(layerGroup);
-
-                
+                app.removeMarker();        
+               
             }
         }
 
@@ -172,8 +214,17 @@ var app = {
                 ui.stopPaintingAll();
                 app._map.un('pointermove', app.calculateN);
                 app.disableCalcButtons("buttonOfN1", "buttonOfN2", true);
+                //document.getElementById("fileInput").style.display = "block";
+                if(document.getElementById("fileInput").style.display == "none" || document.getElementById("fileInput").style.display == ""){
+                    document.getElementById("fileInput").style.display = "block";
+                    //document.getElementById("fileInput").style.disabled = false;
+                    file.loadFile();
+                    
+                }
 
                 /// DO STUFF HERE ........ 
+            }else{
+                document.getElementById("fileInput").style.display = "none"; 
             }
         }
 
@@ -183,56 +234,6 @@ var app = {
 
 app.render("map"); 
 app.paintDivForScientificValue();
-
-
-function putMarkers(places){
-
-    var vectorSource = new ol.source.Vector({});
-
-    for (var i = 0; i < places.length; i++) {
-    
-        var iconFeature = new ol.Feature({
-            geometry: new ol.geom.Point(ol.proj.transform([places[i][0], places[i][1]], 'EPSG:4326', 'EPSG:3857')),
-        });
-       
-        var iconStyle = new ol.style.Style({
-            image: new ol.style.Circle({
-              radius: 6,
-              fill: new ol.style.Fill({
-                color: '#3399CC'
-              }),
-              stroke: new ol.style.Stroke({
-                color: '#fff',
-                width: 2
-              })
-            }),
-            crossOrigin: 'anonymous'
-          })
-    
-        iconFeature.setStyle(iconStyle);
-        vectorSource.addFeature(iconFeature);
-    }
-    
-    
-    var vectorLayer = new ol.layer.Vector({
-        source: vectorSource,
-        // updateWhileAnimating: true,
-        // updateWhileInteracting: true
-    });
-
-    vectorLayer.set('name', 'vector');
-
-    app._map.addLayer(vectorLayer);
-    var viewMap = new ol.View({
-        center: ol.proj.fromLonLat([places[0][0], places[0][1]]), //needs to be projected coords
-        zoom : 10, 
-        rotation : 0
-    }); 
-    app._map.setView(viewMap); 
-}
-
-
-
 
 
 
