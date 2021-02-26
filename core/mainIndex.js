@@ -32,13 +32,13 @@ var app = {
 
     render:function(mapDiv){ //render map
 
-        app._map.setTarget(mapDiv); 
+        this._map.setTarget(mapDiv); 
         var viewMap = new ol.View({
             center: ol.proj.fromLonLat(app._extend.extend), //needs to be projected coords
             zoom : app._extend.zoom, 
             rotation : app._extend.rotation
         }); 
-        app._map.setView(viewMap);  
+        this._map.setView(viewMap);  
     },
 
     uncheckBox:function(id1,id2){
@@ -62,6 +62,50 @@ var app = {
         ui.paintWgs84(ol.proj.toLonLat( coordsXY )); 
         ui.paintEgsa(egsa);
         ui.paintGeo(geoidValue);
+    },
+
+    displayPopup:function(){
+
+        var container = document.getElementById('popup');
+        var content = document.getElementById('popup-content');
+        var closer = document.getElementById('popup-closer');
+
+        var overlay = new ol.Overlay({
+            element: container,
+            autoPan: true,
+            autoPanAnimation: {
+            duration: 250,
+            },
+        });
+
+        this._map.addOverlay(overlay);
+
+        closer.onclick = function () {
+            overlay.setPosition(undefined);
+            closer.blur();
+            return false;
+        };
+
+        this._map.on('singleclick', function (evt) {
+
+            var f = app._map.forEachFeatureAtPixel(
+                        evt.pixel,
+                        function(ft, layer){return ft;}
+            );
+
+            if (f && f.get('type') == 'click') {
+
+                var geometry = f.getGeometry();
+                var coord = geometry.getCoordinates();
+                app.calculateN(evt); 
+                var coordsXY = evt.coordinate;
+                var egsa = fl2EGSA87(ol.proj.toLonLat(coordsXY)[1], ol.proj.toLonLat(coordsXY)[0]);
+                content.innerHTML = '<p>You clicked (Greek Grid):</p><code>' + egsa[0].toFixed(0) +',' + egsa[1].toFixed(0)+ '</code>';
+                overlay.setPosition(coord);
+
+            }
+        });
+
     },
 
     putMarkers: function(places){
@@ -102,14 +146,15 @@ var app = {
     
         vectorLayer.set('name', 'vector');
         //add layer to map
-        app._map.addLayer(vectorLayer);
+        this._map.addLayer(vectorLayer);
         var viewMap = new ol.View({
             center: ol.proj.fromLonLat([places[0][0], places[0][1]]), //needs to be projected coords
             zoom : 10, 
             rotation : 0
         }); 
         //set view to marker
-        app._map.setView(viewMap); 
+        this._map.setView(viewMap); 
+        this.displayPopup(); // dispaly pop up 
     },
 
     removeMarker: function (){
@@ -124,7 +169,7 @@ var app = {
     
         var len = layersToRemove.length;
         for(var i = 0; i < len; i++) {
-            app._map.removeLayer(layersToRemove[i]);
+            this._map.removeLayer(layersToRemove[i]);
         }
     },
 
@@ -238,45 +283,45 @@ app.render("map");
 app.paintDivForScientificValue();
 
 
-var container = document.getElementById('popup');
-var content = document.getElementById('popup-content');
-var closer = document.getElementById('popup-closer');
+// var container = document.getElementById('popup');
+// var content = document.getElementById('popup-content');
+// var closer = document.getElementById('popup-closer');
 
-var overlay = new ol.Overlay({
-    element: container,
-    autoPan: true,
-    autoPanAnimation: {
-      duration: 250,
-    },
-});
+// var overlay = new ol.Overlay({
+//     element: container,
+//     autoPan: true,
+//     autoPanAnimation: {
+//       duration: 250,
+//     },
+// });
 
-app._map.addOverlay(overlay);
+// app._map.addOverlay(overlay);
 
-closer.onclick = function () {
-    overlay.setPosition(undefined);
-    closer.blur();
-    return false;
-};
+// closer.onclick = function () {
+//     overlay.setPosition(undefined);
+//     closer.blur();
+//     return false;
+// };
 
-app._map.on('singleclick', function (evt) {
+// app._map.on('singleclick', function (evt) {
 
-    var f = app._map.forEachFeatureAtPixel(
-                evt.pixel,
-                function(ft, layer){return ft;}
-    );
+//     var f = app._map.forEachFeatureAtPixel(
+//                 evt.pixel,
+//                 function(ft, layer){return ft;}
+//     );
 
-    if (f && f.get('type') == 'click') {
+//     if (f && f.get('type') == 'click') {
 
-        var geometry = f.getGeometry();
-        var coord = geometry.getCoordinates();
-        app.calculateN(evt); 
-        var coordsXY = evt.coordinate;
-        var egsa = fl2EGSA87(ol.proj.toLonLat(coordsXY)[1], ol.proj.toLonLat(coordsXY)[0]);
-        content.innerHTML = '<p>You clicked (Greek Grid):</p><code>' + egsa[0].toFixed(0) +',' + egsa[1].toFixed(0)+ '</code>';
-        overlay.setPosition(coord);
+//         var geometry = f.getGeometry();
+//         var coord = geometry.getCoordinates();
+//         app.calculateN(evt); 
+//         var coordsXY = evt.coordinate;
+//         var egsa = fl2EGSA87(ol.proj.toLonLat(coordsXY)[1], ol.proj.toLonLat(coordsXY)[0]);
+//         content.innerHTML = '<p>You clicked (Greek Grid):</p><code>' + egsa[0].toFixed(0) +',' + egsa[1].toFixed(0)+ '</code>';
+//         overlay.setPosition(coord);
 
-    }
-});
+//     }
+// });
 
 // calculateN:function(evt){
 //     //calculates N, paints egsa, wgs84, N
