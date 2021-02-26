@@ -20,7 +20,8 @@ var app = {
     
             })
            
-        })],
+        })]
+        //overlays:[overlay]
      }),
     // initial map extend
     _extend: {
@@ -70,6 +71,7 @@ var app = {
         for (var i = 0; i < places.length; i++) {
         
             var iconFeature = new ol.Feature({
+                type: 'click',
                 geometry: new ol.geom.Point(ol.proj.transform([places[i][0], places[i][1]], 'EPSG:4326', 'EPSG:3857')),
             });
            
@@ -94,8 +96,8 @@ var app = {
         
         var vectorLayer = new ol.layer.Vector({
             source: vectorSource,
-            // updateWhileAnimating: true,
-            // updateWhileInteracting: true
+            updateWhileAnimating: true,
+            updateWhileInteracting: true
         });
     
         vectorLayer.set('name', 'vector');
@@ -236,6 +238,60 @@ app.render("map");
 app.paintDivForScientificValue();
 
 
+var container = document.getElementById('popup');
+var content = document.getElementById('popup-content');
+var closer = document.getElementById('popup-closer');
+
+var overlay = new ol.Overlay({
+    element: container,
+    autoPan: true,
+    autoPanAnimation: {
+      duration: 250,
+    },
+});
+
+app._map.addOverlay(overlay);
+
+closer.onclick = function () {
+    overlay.setPosition(undefined);
+    closer.blur();
+    return false;
+};
+
+app._map.on('singleclick', function (evt) {
+
+    var f = app._map.forEachFeatureAtPixel(
+                evt.pixel,
+                function(ft, layer){return ft;}
+    );
+
+    if (f && f.get('type') == 'click') {
+
+        var geometry = f.getGeometry();
+        var coord = geometry.getCoordinates();
+        app.calculateN(evt); 
+        var coordsXY = evt.coordinate;
+        var egsa = fl2EGSA87(ol.proj.toLonLat(coordsXY)[1], ol.proj.toLonLat(coordsXY)[0]);
+        content.innerHTML = '<p>You clicked (Greek Grid):</p><code>' + egsa[0].toFixed(0) +',' + egsa[1].toFixed(0)+ '</code>';
+        overlay.setPosition(coord);
+
+    }
+});
+
+// calculateN:function(evt){
+//     //calculates N, paints egsa, wgs84, N
+//     var coordsXY = evt.coordinate;
+//     var egsa = fl2EGSA87(ol.proj.toLonLat( coordsXY )[1], ol.proj.toLonLat( coordsXY )[0]);
+//     var geoidValue = idw.idwPow2(coordsXY[0], coordsXY[1]);
+
+//     ui.paintWgs84(ol.proj.toLonLat( coordsXY )); 
+//     ui.paintEgsa(egsa);
+//     ui.paintGeo(geoidValue);
+
+
+
+
+//////////////////////////////////////////// XYZ TILES ////////////////////////////////////////
 
 // var layerGroup = new ol.layer.Group({
 

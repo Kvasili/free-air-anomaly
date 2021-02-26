@@ -22,17 +22,23 @@
     <script src="./libs/geotiff.js"></script>
     
     <script src="./libs/transformationCoords.js"></script>
+    <!-- <script src="./libs/ol.popup.js"></script> -->
     <script src="libs/loaderDom.js"></script>
     <script src="core/controls.js"></script>
     
     
 
      <!-- custom CSS -->
-     <!-- <link rel="stylesheet" href="css/styles.css"> -->
+     <link rel="stylesheet" href="css/styles.css">
      <link rel="stylesheet" href="./css/mainGeoID.css">
      
 </head>
 <body>
+    <!-- div for popup container -->
+    <div id="popup" class="ol-popup">
+        <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+        <div id="popup-content"></div>
+      </div>
 
     <div id="map" class="map"></div>
 
