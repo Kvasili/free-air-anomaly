@@ -44,8 +44,8 @@
 
     <div id="containerGeoid">
         <div>
-            <h4 style="color: white; text-align:center; display: block;">Υπολογισμός Γεωειδούς</h4>
-            <h4 style="color: white; text-align:center; display: none; ">Υπολογισμός Ανωμαλίων Βαρύτητας</h4><hr>
+            <h4 id="header-for-geoid" style="color: white; text-align:center;">Υπολογισμός Γεωειδούς</h4>
+            <h4 id="header-for-gravity" style="color: white; text-align:center;">Υπολογισμός Ανωμαλίων Βαρύτητας</h4><hr>
         </div>
         
       <div id="cbox">
@@ -80,16 +80,14 @@
           <button id="buttonOfN2" class="btnForCalc" style="font-family: Arial, Helvetica, sans-serif;" disabled >Υπολογισμός</button>
       </div><br>
       <div>
-          <div style="display: block;">
-            <p class="headerings">Υπολογισμός Ν(m) με παρεμβολή IDW</p>
-            <input id="N" class="inputs" type="number"/>
+            <p id="p-geo" class="headerings">Υπολογισμός Ν(m) με παρεμβολή IDW</p>
+       </div> 
+
+        <div>
+            <p id="p-grav" class="headerings">Ανωμαλίες Βαρύτητας Ελευθέρου Αέρα</p>
         </div> 
 
-        <div style="display: none;">
-            <p class="headerings">Υπολογισμός Βαρύτητας Ελευθέρου Αέρα</p>
-          <input id="N" class="inputs" type="number"/> 
-        </div> 
-      </div> 
+        <input id="N" class="inputs" type="number"/> 
       
       <!-- <div id="helpingTitle"><p class="headerings"><b>Οδηγίες</b></p></div> -->
       <div id="helpingTitle" style="color: white; font-size: 17px">1. Οδηγίες
@@ -123,14 +121,16 @@
    
 </body>
 
+    <script src="./core/readRaster.js"></script>
+    <script src="./core/selectValue.js"></script>
     <script src="./core/idw.js"></script>
-    <!-- <script src="core/weather.js"></script> -->
+   
     <script src="core/ui.js"></script>
     <script src="./core/loadFile.js"></script>
-    <!-- <script src="core/storage.js"></script> -->
-    <!-- <script src="core/main.js"></script> -->
+    
+    
     <!-- <script src="./core/main-from-geosrv.js"></script> -->
-    <!-- <script src="core/mainApp.js"></script> -->
+   
     <script src="core/mainIndex.js"></script>
     
     <!-- <script src="controls/gys-logo/logo.js"></script>
@@ -151,45 +151,3 @@
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> -->
 
 </html>
-
-
-
-    <!-- <div id="container" class="col-md-4 mx-auto text-center bg-primary mt-5 p-5"> 
-       
-        <h5 style="color: white; text-align:center; ">Ανωμαλίες Βαρύτητας Ελευθέρου Αέρα</h5><hr>
-        <ul class="list-group mt-3" id="w-details">
-            <span>ΕΓΣΑ</span>
-            <li class="list-group-item" id="egsa-coords"></li>
-            <br>
-            <span>WGS 84</span>
-            <li class="list-group-item" id="wgs84"></li>
-            <br>
-            <span>Ανωμαλίες Βαρύτητας Ελευθέρου αέρα (mGal)</span>
-            <li class="list-group-item" id="faa"></li>
-        </ul>
-    
-        <hr>
-
-        <div class="w3-row w3-border w3-center w3-blue">
-            <p class="w3-section cblack"><b><a href="https://drive.google.com/open?id=1EKOkBaIfLY9ls3E-BOa6lBIVlIIWk_Ps"  target="_blank" style="color: white;"> 1. Τεχνική Τεκμηρίωση </a></b></p>
-            <p class="w3-section cblack"><b><a href="https://drive.google.com/open?id=1HPlvLof3-yra4F1BoiOu7mR9dD3Jf2Vf" target="_blank" style="color: white;"> 2. Χάρτης Βαρύτητας </a></b></p> 
-         </div>
-
-    </div> 
-
-    <div id="container-mobile" class="row">
-        <div class="col s12 m3">
-          <div class="card blue darken-1">
-            <div class="card-content white-text">
-              <span class="card-title">Ανωμαλίες Βαρύτητας Ελευθέρου Αέρα</span>
-              <hr>
-              <span>Τιμές Ανωμαλιών Βαρύτητας (mGal)</span>
-              <p id="faa2" ></p>
-            </div>
-            <div class="card-action">
-              <a href="#">Τεκμηρίωση</a>
-              <a href="#">Χάρτης</a>
-            </div>
-          </div>
-        </div>
-    </div> -->

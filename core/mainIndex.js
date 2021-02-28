@@ -256,6 +256,7 @@ var app = {
 
         checkBox3.onchange = function(){
             app.removeMarker();
+            ui.stopPaintingAll();
             if (checkBox3.checked) {
                 app.uncheckBox('checkbox1','checkbox2');
                 ui.stopPaintingAll();
@@ -283,55 +284,6 @@ app.render("map");
 app.paintDivForScientificValue();
 
 
-// var container = document.getElementById('popup');
-// var content = document.getElementById('popup-content');
-// var closer = document.getElementById('popup-closer');
-
-// var overlay = new ol.Overlay({
-//     element: container,
-//     autoPan: true,
-//     autoPanAnimation: {
-//       duration: 250,
-//     },
-// });
-
-// app._map.addOverlay(overlay);
-
-// closer.onclick = function () {
-//     overlay.setPosition(undefined);
-//     closer.blur();
-//     return false;
-// };
-
-// app._map.on('singleclick', function (evt) {
-
-//     var f = app._map.forEachFeatureAtPixel(
-//                 evt.pixel,
-//                 function(ft, layer){return ft;}
-//     );
-
-//     if (f && f.get('type') == 'click') {
-
-//         var geometry = f.getGeometry();
-//         var coord = geometry.getCoordinates();
-//         app.calculateN(evt); 
-//         var coordsXY = evt.coordinate;
-//         var egsa = fl2EGSA87(ol.proj.toLonLat(coordsXY)[1], ol.proj.toLonLat(coordsXY)[0]);
-//         content.innerHTML = '<p>You clicked (Greek Grid):</p><code>' + egsa[0].toFixed(0) +',' + egsa[1].toFixed(0)+ '</code>';
-//         overlay.setPosition(coord);
-
-//     }
-// });
-
-// calculateN:function(evt){
-//     //calculates N, paints egsa, wgs84, N
-//     var coordsXY = evt.coordinate;
-//     var egsa = fl2EGSA87(ol.proj.toLonLat( coordsXY )[1], ol.proj.toLonLat( coordsXY )[0]);
-//     var geoidValue = idw.idwPow2(coordsXY[0], coordsXY[1]);
-
-//     ui.paintWgs84(ol.proj.toLonLat( coordsXY )); 
-//     ui.paintEgsa(egsa);
-//     ui.paintGeo(geoidValue);
 
 
 
