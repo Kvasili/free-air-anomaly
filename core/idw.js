@@ -86,9 +86,7 @@ IDW.prototype.idwPow2 = function(x,y){
 
             IDWup += value / Math.pow(dist,2) ;
             IDWdown += 1/ Math.pow(dist,2) ; 
-
         }
-    
     }
 
     return IDWup/IDWdown;

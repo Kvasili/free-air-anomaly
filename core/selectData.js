@@ -2,7 +2,6 @@
 // class for choosing which data to display on containerGeoid div
 
 
-
 class Info{
 
     constructor(){
@@ -38,10 +37,8 @@ class Info{
         var image = new DataFromImage("data/rgbDems/free-air-rgb.tif");
         image.getResults(); 
     }
-
-    
 }
 
 var info = new Info();
-//info.geoid(); 
-info.gravity();
+//info.geoid(); //because huey is checked
+//info.gravity();

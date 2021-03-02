@@ -21,7 +21,6 @@ var app = {
             })
            
         })]
-        //overlays:[overlay]
      }),
     // initial map extend
     _extend: {
@@ -173,13 +172,35 @@ var app = {
         }
     },
 
+    whatToDispaly: function(){
+
+        info.geoid();
+        var radioBtn1 = document.getElementById("huey");
+        var radioBtn2 = document.getElementById("dewey");
+    
+        radioBtn1.onchange = function(){
+            if (radioBtn1.checked){
+                //alert('it works!'); 
+                info.geoid(); 
+            }
+        }
+    
+        radioBtn2.onchange = function(){
+            if (radioBtn2.checked){
+                //alert('it works!'); 
+                info.gravity(); 
+            }
+        }
+    
+    },
+
     paintDivForScientificValue: function(){
+
+        this.whatToDispaly(); 
 
         var checkBox1 = document.getElementById("checkbox1");
         var checkBox2 = document.getElementById("checkbox2");
         var checkBox3 = document.getElementById("checkbox3");
-
-        //var pointsForMarkers = []; 
 
         this._map.on('pointermove', this.calculateN);//because checkbox1 is initially checked
 
@@ -280,7 +301,34 @@ var app = {
 
 }
 
+
+
+function whatToDispaly(){
+
+    info.geoid();
+    var radioBtn1 = document.getElementById("huey");
+    var radioBtn2 = document.getElementById("dewey");
+
+    radioBtn1.onchange = function(){
+        if (radioBtn1.checked){
+            //alert('it works!'); 
+            info.geoid(); 
+        }
+    }
+
+    radioBtn2.onchange = function(){
+        if (radioBtn2.checked){
+            //alert('it works!'); 
+            info.gravity(); 
+        }
+    }
+
+}
+
+
+whatToDispaly(); 
 app.render("map"); 
+// info.geoid();
 app.paintDivForScientificValue();
 
 

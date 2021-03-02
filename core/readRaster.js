@@ -28,12 +28,10 @@ class DataFromImage{
             var pixelScale = imageDem.getFileDirectory().ModelPixelScale;
             
             geoTransformDem = [tiepoint.x, pixelScale[0], 0, tiepoint.y, 0, -1 * pixelScale[1]];
-            //return geoTransformDem; 
             //console.log(geoTransformDem);
     
         });
 
-        //return [imageDem, DemRaster, geoTransformDem]
     }
 
    async getResults(){

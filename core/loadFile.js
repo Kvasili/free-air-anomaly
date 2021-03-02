@@ -26,7 +26,7 @@ class FileInput{
                 reader.onload = function(e) {
                     app.removeMarker();
                     var content = reader.result; 
-                    var newContent = []; 
+                    //var newContent = []; 
                     //console.log(content);
                     var lines = content.split("\n");
                     //console.log(lines.length); 
