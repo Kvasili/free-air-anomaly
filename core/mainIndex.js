@@ -301,34 +301,7 @@ var app = {
 
 }
 
-
-
-function whatToDispaly(){
-
-    info.geoid();
-    var radioBtn1 = document.getElementById("huey");
-    var radioBtn2 = document.getElementById("dewey");
-
-    radioBtn1.onchange = function(){
-        if (radioBtn1.checked){
-            //alert('it works!'); 
-            info.geoid(); 
-        }
-    }
-
-    radioBtn2.onchange = function(){
-        if (radioBtn2.checked){
-            //alert('it works!'); 
-            info.gravity(); 
-        }
-    }
-
-}
-
-
-whatToDispaly(); 
 app.render("map"); 
-// info.geoid();
 app.paintDivForScientificValue();
 
 

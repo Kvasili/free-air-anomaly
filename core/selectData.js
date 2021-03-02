@@ -11,6 +11,9 @@ class Info{
 
         this.p1 = document.getElementById("p-geo");
         this.p2 = document.getElementById("p-grav");
+
+        this.doc1 = document.getElementById("geo-documentation");
+        this.doc2 = document.getElementById("gravity-documentation");
         
     }
 
@@ -18,9 +21,11 @@ class Info{
 
         this.header1.style.display = "block"; 
         this.p1.style.display="block";
+        this.doc1.style.display="block";
 
         this.header2.style.display = "none"; 
         this.p2.style.display="none";
+        this.doc2.style.display="none";
 
         var image = new DataFromImage("data/rgbDems/HellasGeoid-rgb.tif"); 
         image.getResults();
@@ -30,9 +35,11 @@ class Info{
 
         this.header1.style.display = "none"; 
         this.p1.style.display="none";
+        this.doc1.style.display="none";
 
         this.header2.style.display = "block";
         this.p2.style.display="block";
+        this.doc2.style.display="block";
 
         var image = new DataFromImage("data/rgbDems/free-air-rgb.tif");
         image.getResults(); 
