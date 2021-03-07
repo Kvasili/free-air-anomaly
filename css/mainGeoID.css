@@ -17,7 +17,7 @@
     overflow-x: scroll;
     background-color: rgb(79, 146, 79) ;
     float: right;
-    top: 10%;
+    top: 15%;
     left: 8px;
     border: 2px solid rgb(6, 12, 6);
     display: block;
@@ -29,11 +29,12 @@
 
 
 #mobile{
+
     position: absolute;
-    max-width: 20%;
+    max-width: 30%;
     /* max-height: 20%;   */
     background-color: rgb(79, 146, 79) ;
-    top: 75%;
+    top: 40%;
     right: 8px;
     border: 2px solid rgb(6, 12, 6);
     /* display: none; */
@@ -60,9 +61,18 @@
     display: block;
     margin: 0 auto;   
     text-align: center;
-    max-width: 50px; 
+    max-width: 70px; 
     background-color: rgb(13, 248, 248);    
 }
+
+/* #N3 {
+    position: relative;
+    display: block;
+    margin: 0 auto;   
+    text-align: center;
+    max-width: 60px; 
+    background-color: rgb(13, 248, 248);    
+} */
 
 /* @media only screen and (max-width:600px){
     #mobile{
@@ -87,11 +97,11 @@
 
 }
 
-@media only screen and (max-width:600px){
+/* @media only screen and (max-width:600px){
     #upload{
         display:none;
     }
-}
+} */
 
 #cbox{
     width: 100%;
@@ -180,13 +190,16 @@ a:hover {
     color: rgb(243, 12, 4);
 }
 
-#helping{
+#helpInfos{
+    font-size: 15px;
     text-align: justify;
     display: none;
     font-family: Arial, Helvetica, sans-serif;
 }
 
 #helpingTitle{
+    color: white;
+    font-size: 15px;
     cursor: pointer;
     font-family: Arial, Helvetica, sans-serif;
 }

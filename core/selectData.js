@@ -44,6 +44,14 @@ class Info{
         var image = new DataFromImage("data/rgbDems/free-air-rgb.tif");
         image.getResults(); 
     }
+
+    // both(){
+    //     var image1 = new DataFromImage("data/rgbDems/HellasGeoid-rgb.tif");
+    //     image1.getResults(); 
+
+    //     var image2 = new DataFromImage("data/rgbDems/free-air-rgb.tif");
+    //     image2.getResults(); 
+    // }
 }
 
 var info = new Info();

@@ -9,6 +9,8 @@ class UI{
         this.wgs84F = document.getElementById('lat'); 
         this.wgs84L = document.getElementById('lon'); 
         this.geoValue = document.getElementById('N'); 
+        // for mobile version only
+        this.N2 = document.getElementById('N2'); 
     }
 
 
@@ -27,6 +29,9 @@ class UI{
         this.geoValue.value = val.toFixed(2); 
     }
 
+    paintGeo2(val){
+        this.N2.value = val.toFixed(2); 
+    }
 
     paintFaa(faa){
         this.faa.textContent = `${faa.toFixed(2)} mGal`; 
@@ -42,7 +47,7 @@ class UI{
 
         this.egsaX.value = '';
         this.egsaY.value = ''; 
-        this.wgs84F.value  = ''; //`φ: ${wgs[1].toFixed(4)} ${'||'} λ:${wgs[0].toFixed(4)}`; 
+        this.wgs84F.value  = ''; 
         this.wgs84L.value = '';
         this.geoValue.value = ''; 
 

@@ -61,6 +61,8 @@ var app = {
         ui.paintWgs84(ol.proj.toLonLat( coordsXY )); 
         ui.paintEgsa(egsa);
         ui.paintGeo(geoidValue);
+        //ui.paintGeo2(geoidValue);
+
     },
 
     displayPopup:function(){
@@ -194,9 +196,27 @@ var app = {
     
     },
 
+    helpingInfos:function(){
+
+        document.getElementById("helpingTitle").onclick= function(){
+
+            var helping = document.getElementById("helpInfos");
+            
+            if(helping.style.display == "none" || helping.style.display == ""){
+                //console.log("hello world !")
+                helping.style.display = "block"; //show element
+            }else{
+                helping.style.display = "none"; //hide element
+            }
+        
+        }
+    },
+
     paintDivForScientificValue: function(){
 
-        this.whatToDispaly(); 
+        this.whatToDispaly();
+        this.helpingInfos();
+         
 
         var checkBox1 = document.getElementById("checkbox1");
         var checkBox2 = document.getElementById("checkbox2");
@@ -297,15 +317,60 @@ var app = {
             }
         }
 
+    },
+
+    calculateN2:function(evt){
+        
+        //calculates N for mobile div
+        var coordsXY = evt.coordinate;
+        var geoidValue = idw.idwPow2(coordsXY[0], coordsXY[1]);
+        ui.paintGeo2(geoidValue);
+    },
+
+    paintMobileDiv:function(){
+
+        var radioBtn1 = document.getElementById("hueyM");
+        var radioBtn2 = document.getElementById("deweyM");
+
+        radioBtn1.onchange = function(){
+            if (radioBtn1.checked){
+                //alert('it works!'); 
+                var image = new DataFromImage("data/rgbDems/HellasGeoid-rgb.tif"); 
+                image.getResults(); 
+                app._map.on('click', app.calculateN2);
+                
+            }else{
+                app._map.un('click', app.calculateN2);//stop from calculating 
+            }
+        }
+
+        radioBtn2.onchange = function(){
+            if (radioBtn2.checked){
+                //alert('it works!'); 
+                var image = new DataFromImage("data/rgbDems/free-air-rgb.tif");
+                image.getResults();  
+                app._map.on('click', app.calculateN2);
+            }else{
+                app._map.un('click', app.calculateN2);//stop from calculating 
+            }
+        }
+
+
+        // function calculateN2(evt){
+        //     //calculates N, paints egsa, wgs84, N
+        //     var coordsXY = evt.coordinate;
+        //     var geoidValue = idw.idwPow2(coordsXY[0], coordsXY[1]);
+
+        //     ui.paintGeo2(geoidValue);
+
+        // }
     }
 
 }
 
 app.render("map"); 
 app.paintDivForScientificValue();
-
-
-
+app.paintMobileDiv();
 
 
 

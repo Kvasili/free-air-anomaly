@@ -4,17 +4,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Free-air-anomally map</title>
 
-    
     <!-- openlayers -->
-    <!-- <link rel="stylesheet" href="./libs/bootstrap.min.css"> -->
     <link rel="stylesheet" href="./libs/v6.4.3-dist/ol.css">  
-    <!-- <link rel="stylesheet" type="text/css" href="https://www.w3schools.com/w3css/4/w3.css"/>   -->
 
-      <!-- Compiled and minified CSS -->
-      <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-   -->
-    
     <script src="./libs/v6.4.3-dist/ol.js"></script>
 
     <script src="https://d3js.org/d3.v4.min.js"></script>
@@ -97,22 +89,27 @@
         <input id="N" class="inputs" type="number"/> 
       
       <!-- <div id="helpingTitle"><p class="headerings"><b>Οδηγίες</b></p></div> -->
-      <div id="helpingTitle" style="color: white; font-size: 17px">1. Οδηγίες
+      <div id="helpingTitle">1. Οδηγίες
       
-          <img src="images/info2.png" alt="Οδηγίες" style="background-color: transparent;">
+          <img src="images/info2.png" alt="Οδηγίες" style="background-color: transparent; width: 18px;">
       
       </div>
-      <div id="helping"> <p></p>
-          <p class="inst">- Ο υπολογισμός των υψομέτρων γίνεται αυτόματα με την κίνηση του 
-                ποντικιού στον χάρτη.</p>
-          <p class="inst">- Ξεκλικάρετε την επιλογή <q>Ανάκτηση πληροφορίας από χάρτη</q> και εισάγετε
-              τις συντεταγμένες σε ένα από τα παραπάνω πεδία.</p>
+      <div id="helpInfos" style="display: none;"> <p></p>
+          <p class="inst">- Επιλέγοντας την επιλογή <q>Ανάκτηση πληροφορίας από υπόβαθρο</q>Ο υπολογισμός των δεδομένων 
+            γίνεται αυτόματα με την κίνηση του ποντικιού στον χάρτη.</p>
+
+          <p class="inst">- Επιλέξτε την επιλογή <q>Ανάκτηση πληροφορίας με συντεταγμένες</q> και εισάγετε
+              τις συντεταγμένες σε ένα από τα παραπάνω πεδία στο κατάλληλο Σύστημα Αναφοράς.</p>
+
           <p class="inst">- Παντώντας <q>Υπολογισμός</q> υπολογίζονται οι συντεταγμένες του σημείου 
-              στο έταιρο Σύστημα Αναφοράς καθώς και το υψόμετρο απόκλισης του Γεωειδούς.</p>
+              στο έταιρο Σύστημα Αναφοράς καθώς και το υψόμετρο απόκλισης του Γεωειδούς ή η τιμή Βαρύτητας
+              ανάλογα με την αρχική επιλογή του χρήστη.</p>
+
           <p class="inst">- Παντώντας <q>Επιλογή αρχείου</q> στο δεξί πλαίσιο, ο χρήστης μπορεί να επιλέξει
           αρχείο (csv, txt) με συντεταγμένες. Οι συνταγμένες πρέπει να βρίσκονται σε μορφή α/α,x,y, χωρίς
           κενό μεταξύ τους.</p>
-          <p class="inst">- Περισσότερες πληροφορίες για την διαδικασία υπολογισμού των υψομέτρων στους παρακάτω
+          
+          <p class="inst">- Περισσότερες πληροφορίες για την τεχνική τεκμηρίωση των δεδομένων στους παρακάτω
               συνδέσμους : 
           </p> 
          
@@ -124,14 +121,21 @@
 
       <div id="gravity-documentation" style="font-size: 17px; display: none">
         <a href="" target="_blank" style="color:white;">2. Τεχνική τεκμηρίωση </a>
-        <br><a href="" target="_blank" style="color:white;">3. Χάρτης Γεωειδούς</a> 
+        <br><a href="https://drive.google.com/file/d/1psXTlWgUKHPgDeEuKVs7i3BhOVnu4Y3J/view?usp=sharing" target="_blank" style="color:white;">3. Χάρτης Ανωμαλιών Βαρύτητας</a> 
       </div>
     </div>
+ 
 
-  </div>
-
-
-   
+    <div id="mobile">
+        <div id="">
+            <input type="radio" id="hueyM" name = "droneM" value="huey"><label for="huey" style="color: white;">Γεωειδές</label><br>
+            <input type="radio" id="deweyM" name = "droneM" value="dewey"> <label for="dewey" style="color: white;">Βαρύτητα</label>
+        </div>
+        <hr>
+        <input id="N2" class="inputs2" type="text"/> 
+    
+    </div>
+        
 </body>
 
     <script src="./core/readRaster.js"></script>
@@ -140,9 +144,6 @@
    
     <script src="core/ui.js"></script>
     <script src="./core/loadFile.js"></script>
-    
-    
-    <!-- <script src="./core/main-from-geosrv.js"></script> -->
    
     <script src="core/mainIndex.js"></script>
     
