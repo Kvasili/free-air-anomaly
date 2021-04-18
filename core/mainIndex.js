@@ -53,7 +53,7 @@ var app = {
     },
 
     calculateN:function(evt){
-        //calculates N, paints egsa, wgs84, N
+        //calculates N, paints egsa, wgs84, N for pc version
         var coordsXY = evt.coordinate;
         var egsa = fl2EGSA87(ol.proj.toLonLat( coordsXY )[1], ol.proj.toLonLat( coordsXY )[0]);
         var geoidValue = idw.idwPow2(coordsXY[0], coordsXY[1]);
@@ -61,8 +61,15 @@ var app = {
         ui.paintWgs84(ol.proj.toLonLat( coordsXY )); 
         ui.paintEgsa(egsa);
         ui.paintGeo(geoidValue);
-        //ui.paintGeo2(geoidValue);
 
+    },
+
+    calculateN2:function(evt){
+        
+        //calculates N for mobile div
+        var coordsXY = evt.coordinate;
+        var geoidValue = idw.idwPow2(coordsXY[0], coordsXY[1]);
+        ui.paintGeo2(geoidValue);
     },
 
     displayPopup:function(){
@@ -319,14 +326,6 @@ var app = {
 
     },
 
-    calculateN2:function(evt){
-        
-        //calculates N for mobile div
-        var coordsXY = evt.coordinate;
-        var geoidValue = idw.idwPow2(coordsXY[0], coordsXY[1]);
-        ui.paintGeo2(geoidValue);
-    },
-
     paintMobileDiv:function(){
 
         var radioBtn1 = document.getElementById("hueyM");
@@ -354,16 +353,6 @@ var app = {
                 app._map.un('click', app.calculateN2);//stop from calculating 
             }
         }
-
-
-        // function calculateN2(evt){
-        //     //calculates N, paints egsa, wgs84, N
-        //     var coordsXY = evt.coordinate;
-        //     var geoidValue = idw.idwPow2(coordsXY[0], coordsXY[1]);
-
-        //     ui.paintGeo2(geoidValue);
-
-        // }
     }
 
 }

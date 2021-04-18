@@ -1,19 +1,4 @@
 
-/* 
- body{
-    margin: 0;
-    padding: 0;
-    height: 100%;
-} */
-
-/* .map{
-    height:50%;
-    width: 100%;
-    position: fixed;
-    display: block;
-}  */
-
-
 .ol-popup {
   position: absolute;
   background-color: white;
@@ -24,6 +9,7 @@
   bottom: 12px;
   left: -50px;
   min-width: 180px;
+
 }
 
 .ol-popup:after, .ol-popup:before {
@@ -55,108 +41,4 @@
 }
 .ol-popup-closer:after {
   content: "✖";
-}
-
-#mainCross{
-    position: absolute;
-    width: 60px; /*the image width*/
-    height: 60px; /*the image height*/
-    left: 50%;
-    top: 50%;
-    margin-left: -30px; /*half the image width*/
-    margin-top: -30px; /*half the image height*/
-    z-index: 1000;
-}
-
-#container{
-
-    background-color: rgba(0, 72, 255, 0.775);
-    position: absolute;
-    
-    max-width: 27%;
-    max-height: 70%;  
-   
-    float: right;
-    top: 20%;
-    left: 2%;
-    border: 2px solid rgb(6, 12, 6);
-    display: block;
-    z-index: 99;
-    padding: 9px;
-    border-radius: 2%;
-    display: block; 
-    font-family: Arial, Helvetica, sans-serif;  
-    font-size: 16px;
-    text-align: center;
-} 
-
-#container-mobile{
-
-    /* background-color: rgba(0, 72, 255, 0.775);
-    position: absolute;
-    
-    
-    max-height: 50%;  
-   
-    float: right;
-    top: 20%;
-    left: 2%;
-    border: 2px solid rgb(6, 12, 6);
-    display: block;
-    z-index: 99;
-    padding: 9px;
-    border-radius: 2%;
-    display: none; 
-    font-size: 0em; */
-
-
-    
-    /* background-color: rgba(0, 72, 255, 0.775);
-    position: absolute;
-    
-    max-width: 30%;
-    max-height: 80%;  
-   
-    top: 20%;
-    left: 2%;
-    border: 2px solid rgb(6, 12, 6);
-    display: block;
-    z-index: 99;
-    padding: 9px;
-    border-radius: 2%;
-    
-    font-family: Arial, Helvetica, sans-serif;  
-    font-size: small; */
-
-    display: none;
-    text-align: center;
-
-} 
-
-
-/* h5,p.cblack{color:black;}
-
-.n_content{
-    display: block;
-
-}
-.mobile_content{
-    display: none;
-} */
-
-@media (max-width:700px){
-
-    #container{
-
-        display: none;
-        
-    }
-
-    #container-mobile{
-
-        display: block;
-    }
-
-
-
 }
