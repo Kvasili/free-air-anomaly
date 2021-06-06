@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "..\\..\\geoid_project"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "free-air-anomaly"
+	}
+}

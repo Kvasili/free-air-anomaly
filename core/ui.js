@@ -1,6 +1,6 @@
 
 // class ui for painting div container with appropriate data
-
+//var theUI=new
 class UI{
     
     constructor(){

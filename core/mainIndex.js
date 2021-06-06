@@ -188,6 +188,7 @@ var app = {
         var radioBtn2 = document.getElementById("dewey");
     
         radioBtn1.onchange = function(){
+            
             if (radioBtn1.checked){
                 //alert('it works!'); 
                 info.geoid(); 
@@ -360,49 +361,3 @@ var app = {
 app.render("map"); 
 app.paintDivForScientificValue();
 app.paintMobileDiv();
-
-
-
-//////////////////////////////////////////// XYZ TILES ////////////////////////////////////////
-
-// var layerGroup = new ol.layer.Group({
-
-//     layers: [
-
-//         new ol.layer.Tile({
-    
-//             source : new ol.source.XYZ({
-                        
-//                 attributionsCollapsible: false,
-//                 url:'data/hellas-geoid-rgb-tiles/{z}/{x}/{y}.png',
-//                 maxZoom: 19
-        
-//             }),
-//             visible:true,
-//             //zIndex:2,
-//             dem: false
-            
-//         }),
-
-//         new ol.layer.Tile({
-    
-//             source : new ol.source.XYZ({
-                        
-//                 attributionsCollapsible: false,
-//                 url:'data/faa-rgb-tiles/{z}/{x}/{y}.png',
-//                 maxZoom: 19
-        
-//             }),
-//             visible:false,
-//             zIndex:2,
-//             dem: true,
-//             opacity: 1
-            
-//         })
-//     ],
-
-// })
-
-
-//app._map.addLayer(layerGroup);
-
