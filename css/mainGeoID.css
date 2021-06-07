@@ -6,21 +6,33 @@
 }
 
 #map {
-    height: 100% !important;
+    height: 100% ;
     width: 100%;
-    float: left;
+    float: right;
     z-index: 1;
-    position: absolute;
+    /* position: absolute; */
 }
+
+#mainCross {
+    position: absolute;
+    width: 40px; /*the image width*/
+    height: 40px; /*the image height*/
+    left: 50%;
+    top: 50%;
+    margin-left: -20px; /*half the image width*/
+    margin-top: -20px; /*half the image height*/
+    z-index: 1000;
+    display: none;
+  }
 
 #containerGeoid {
     position: absolute;
-    width: 350px;
+    width:350px; 
     max-width: 40%;
     max-height: 80%; 
     overflow-y: scroll;
-    /* overflow-x: hidden; */
-    overflow-x: scroll;
+   
+    /* overflow-x: scroll; */
     background-color: rgb(79, 146, 79) ;
     float: right;
     top: 15%;
@@ -33,22 +45,38 @@
 }
 
 
-
-#mobile{
+/* #mobile{
 
     position: absolute;
-    max-width: 30%;
-    /* max-height: 20%;   */
+    max-width: 80%;
     background-color: rgb(79, 146, 79) ;
-    top: 40%;
-    right: 8px;
+    top: 5%;
+    right: 15%;
     border: 2px solid rgb(6, 12, 6);
-    /* display: none; */
     z-index: 99;
     padding: 9px;
     border-radius: 5%;
     display: none;
+} */
+
+
+#mobile{
+
+    position: absolute;
+    width:80%; /*the image width*/
+    height: 23%; /*the image height*/
+    background-color: rgb(79, 146, 79) ;
+    left: 18%;
+    top: 10%;
+    margin-left: -40; /*half the image width*/
+    margin-top: -20px; /*half the image height*/
+    z-index: 1000;
+    display: none;
+    border-radius: 5%;
+    padding: 9px;
+    border: 2px solid rgb(6, 12, 6);
 }
+
 
 @media only screen and (max-width:600px){
 
@@ -58,6 +86,10 @@
 
     #containerGeoid{
         display:none;
+    }
+
+    #mainCross{
+        display: block; 
     }
 
 }

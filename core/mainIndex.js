@@ -20,7 +20,9 @@ var app = {
     
             })
            
-        })]
+        })],
+
+        controls: ol.control.defaults({zoom: false})
      }),
     // initial map extend
     _extend: {
@@ -64,11 +66,19 @@ var app = {
 
     },
 
-    calculateN2:function(evt){
+    calculateNForMapCenter:function(){
+
+        //var map = evt.map;
+        //get coordinates of center map view
+        center = app._map.getView().getCenter() ;
+        //console.log(center); 
         
         //calculates N for mobile div
-        var coordsXY = evt.coordinate;
-        var geoidValue = idw.idwPow2(coordsXY[0], coordsXY[1]);
+        // var coordsXY = evt.coordinate;
+        // console.log(coordsXY); 
+
+        //var geoidValue = idw.idwPow2(coordsXY[0], coordsXY[1]);
+        var geoidValue = idw.idwPow2(center[0], center[1]);
         ui.paintGeo2(geoidValue);
     },
 
@@ -181,11 +191,11 @@ var app = {
         }
     },
 
-    whatToDispaly: function(){
+    whatToDispaly: function(id1 ,id2){
 
         info.geoid();
-        var radioBtn1 = document.getElementById("huey");
-        var radioBtn2 = document.getElementById("dewey");
+        var radioBtn1 = document.getElementById(id1); //"huey"
+        var radioBtn2 = document.getElementById(id2); //"dewey"
     
         radioBtn1.onchange = function(){
             
@@ -222,8 +232,8 @@ var app = {
 
     paintDivForScientificValue: function(){
 
-        this.whatToDispaly();
-        this.helpingInfos();
+        this.whatToDispaly("huey", "dewey");
+        this.helpingInfos( );
          
 
         var checkBox1 = document.getElementById("checkbox1");
@@ -332,15 +342,25 @@ var app = {
         var radioBtn1 = document.getElementById("hueyM");
         var radioBtn2 = document.getElementById("deweyM");
 
+        this._map.on('moveend', this.calculateNForMapCenter); //because radioBtn1 is initially checked
+        this._map.on('pointerdrag', this.calculateNForMapCenter);
+
         radioBtn1.onchange = function(){
             if (radioBtn1.checked){
                 //alert('it works!'); 
                 var image = new DataFromImage("data/rgbDems/HellasGeoid-rgb.tif"); 
                 image.getResults(); 
-                app._map.on('click', app.calculateN2);
-                
+                app._map.on('moveend', app.calculateNForMapCenter);
+                app._map.on('pointerdrag', app.calculateNForMapCenter);
+
+                document.getElementById("geo-documentationM").style.display = 'block'; 
+                document.getElementById("gravity-documentationM").style.display = 'none'; 
             }else{
-                app._map.un('click', app.calculateN2);//stop from calculating 
+                app._map.un('moveend', app.calculateNForMapCenter);//stop from calculating
+                app._map.on('pointerdrag', app.calculateNForMapCenter);
+
+                document.getElementById("geo-documentationM").style.display = 'none'; 
+                document.getElementById("gravity-documentationM").style.display = 'block';  
             }
         }
 
@@ -348,10 +368,18 @@ var app = {
             if (radioBtn2.checked){
                 //alert('it works!'); 
                 var image = new DataFromImage("data/rgbDems/free-air-rgb.tif");
-                image.getResults();  
-                app._map.on('click', app.calculateN2);
+                image.getResults();   
+                app._map.on('moveend', app.calculateNForMapCenter);
+                app._map.on('pointerdrag', app.calculateNForMapCenter); 
+
+                document.getElementById("geo-documentationM").style.display = 'none'; 
+                document.getElementById("gravity-documentationM").style.display = 'block';
             }else{
-                app._map.un('click', app.calculateN2);//stop from calculating 
+                app._map.un('moveend', app.calculateNForMapCenter);//stop from calculating 
+                app._map.on('pointerdrag', app.calculateNForMapCenter); 
+
+                document.getElementById("geo-documentationM").style.display = 'block'; 
+                document.getElementById("gravity-documentationM").style.display = 'none';
             }
         }
     }

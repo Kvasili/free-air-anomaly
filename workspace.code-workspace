@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "..\\millApp"
+		},
+		{
+			"path": "."
+		},
+		{
+			"path": "..\\olSample"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "free-air-anomaly"
+	}
+}

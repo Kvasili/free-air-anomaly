@@ -13,7 +13,6 @@ class UI{
         this.N2 = document.getElementById('N2'); 
     }
 
-
     paintEgsa(egsa){
        
         this.egsaX.value = egsa[0].toFixed(0);
